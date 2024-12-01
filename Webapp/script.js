@@ -167,7 +167,7 @@ document.getElementById("generate-ai-prompt").addEventListener("click", async ()
         const cleanedData = cleanDataset(data);
         if (cleanedData && cleanedData.length > 0) {
           const sampleRows = cleanedData
-            .slice(0, 2)
+            .slice(0, 5)
             .map((row, index) => ` ${JSON.stringify(row)}`)
             .join("\n");
           return `Sample Data:\n${sampleRows}`;
@@ -239,7 +239,7 @@ const handleWriteModel = async () => {
       const cleanedData = cleanDataset(data);
       if (cleanedData && cleanedData.length > 0) {
         const sampleRows = cleanedData
-          .slice(0, 1)
+          .slice(0, 5)
           .map((row) => `${JSON.stringify(row)}`)
           .join("\n");
         return `Data:${sampleRows}`;
