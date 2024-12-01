@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Model Integration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>AI Model Integration</h1>
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="data-source" value="upload" checked> Upload Data
+      </label>
+      <label>
+        <input type="radio" name="data-source" value="real-data"> Get Real Data
+      </label>
+    </div>
+    
+    <!-- Real Data Input Section -->
+    <div class="real-data-input" id="get-real-data-section" style="display: none;">
+      <h3>Get Text from Browser</h3>
+      <button id="get-text">Fetch Selected Text</button>
+      <textarea id="output" placeholder="Selected text will appear here..."></textarea>
+      
+
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <h2>Upload Datasets</h2>
+      <div class="file-input">
+        <label for="all-datasets">
+          <span class="tooltip" title="Upload CSV datasets to use in AI models">
+            📂 Upload Datasets (CSV):
+          </span>
+        </label>
+        <input type="file" id="all-datasets" multiple accept=".csv">
+      </div>
+    </div>
+
+    <!-- Model Selection Section -->
+    <div class="model-selection">
+      <h2>Select AI Model</h2>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="model" value="prompt" checked>
+          Prompt-based Model
+        </label>
+        <label>
+          <input type="radio" name="model" value="summarization">
+          Summarization Model
+        </label>
+        <label>
+          <input type="radio" name="model" value="write">
+          Write Model
+        </label>
+        <label>
+          <input type="radio" name="model" value="rewrite">
+          Rewrite Model
+        </label>
+      </div>
+    </div>
+
+    <!-- Prompt Section -->
+    <div class="prompt-section">
+      <h2>Enter Prompt</h2>
+      <textarea id="user-prompt" placeholder="Enter your custom prompt here..."></textarea>
+    </div>
+
+    <!-- Dataset Selection Section -->
+    <div class="dataset-selection">
+      <h2>Select Datasets</h2>
+      <div id="dataset-checkboxes" class="checkbox-group"></div>
+    </div>
+
+    <!-- Summarization Section -->
+    <div class="summarization-section" style="display: none;">
+      <h2>Enter Text for Summarization</h2>
+      <textarea id="summarization-input" placeholder="Enter text to summarize..."></textarea>
+    </div>
+
+    <!-- Write Model Section -->
+    <div class="write-section" style="display: none;">
+      <div class="task-context-section">
+        <h2>Enter Task Context</h2>
+        <textarea id="task-context" placeholder="Enter task-specific context for the writer..."></textarea>
+      </div>
+      <div class="content-input-section">
+        <h2>Enter Content to Expand</h2>
+        <textarea id="user-content" placeholder="Enter your content here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Rewrite Model Section -->
+    <div class="rewrite-section" style="display: none;">
+      <div class="task-context-section">
+        <h2>Enter Task Context</h2>
+        <textarea id="task-rewrite" placeholder="Enter task-specific context for rewriting..."></textarea>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="action-buttons">
+      <button id="generate-ai-prompt">Generate AI Response</button>
+    </div>
+
+    <!-- AI Response Section -->
+    <div class="summary-section">
+        <h2>AI Response</h2>
+        <pre id="ai-response">Your AI response will appear here.</pre>
+      </div>
+      
+  </div>
+   <script src="libs/papaparse.min.js"></script>
+<script src="libs/purify.min.js"></script>
+  <script src="script.js"></script>
+  <script src="popup.js"></script>
+
+</body>
+</html>
