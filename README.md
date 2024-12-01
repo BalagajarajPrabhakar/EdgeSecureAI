@@ -13,3 +13,5 @@ The core APIs used in this project include:
 4. Rewrite API: Helping businesses rephrase and rewrite their content, this API ensures that all communication is clear and optimized while all data are processed locally for greater security.
 
 Integration of these APIs allows business organizations to drive efficiency, foster innovation, and scale operations seamlessly across environments so that growth can be managed in a competitive digital world with the highest standards for data privacy.
+
+MVP link : https://balaskill.co.in/EdgeSecureAI/
