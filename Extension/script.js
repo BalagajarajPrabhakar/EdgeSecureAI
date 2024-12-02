@@ -1,5 +1,4 @@
 
-// Toggle between Upload Data and Get Real Data
 document.querySelectorAll('input[name="data-source"]').forEach((radio) => {
   radio.addEventListener("change", (event) => {
     const selectedSource = event.target.value;
@@ -10,11 +9,9 @@ document.querySelectorAll('input[name="data-source"]').forEach((radio) => {
   });
 });
 
-/////////////////////////////////////////////////////////////////////////////////////
-// Store datasets
+
 let datasets = {};
 
-// Parse CSV file into JSON format
 const parseCSVFile = async (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -30,7 +27,6 @@ const parseCSVFile = async (file) => {
   });
 };
 
-// Function to clean dataset rows
 const cleanDataset = (data) => {
   return data.map(row => {
     return Object.fromEntries(
@@ -39,7 +35,6 @@ const cleanDataset = (data) => {
   });
 };
 
-// Toggle visibility based on selected model
 document.querySelectorAll('input[name="model"]').forEach((radio) => {
   radio.addEventListener("change", (event) => {
     const selectedModel = event.target.value;
@@ -57,7 +52,6 @@ document.querySelectorAll('input[name="model"]').forEach((radio) => {
   });
 });
 
-// Load datasets and dynamically create checkboxes
 document.getElementById("all-datasets").addEventListener("change", async (event) => {
   const files = event.target.files;
 
@@ -90,7 +84,6 @@ document.getElementById("all-datasets").addEventListener("change", async (event)
   document.getElementById("generate-ai-prompt").disabled = Object.keys(datasets).length === 0;
 });
 
-// Summarization model logic
 const handleSummarizationModel = async () => {
     
     const textToSummarize = document.getElementById("summarization-input").value;
@@ -151,13 +144,11 @@ const handleSummarizationModel = async () => {
   }
 };
 
-// Generate AI response based on selected model
 document.getElementById("generate-ai-prompt").addEventListener("click", async () => {
   const selectedModel = document.querySelector('input[name="data-source"]:checked').value;
   
 
   if (selectedModel === "upload") {
-    // Existing prompt-based logic
     const userPrompt = document.getElementById("user-prompt").value;
     const selectedDatasets = Array.from(
       document.querySelectorAll("#dataset-checkboxes input:checked")
@@ -234,7 +225,6 @@ document.getElementById("generate-ai-prompt").addEventListener("click", async ()
 
 
   if (selectedModel === "real-data") {
-    // Existing prompt-based logic
     const userPrompt = document.getElementById("user-prompt").value;
     const Content = document.getElementById("output").value;
     const fullPrompt = `
@@ -327,12 +317,10 @@ const GetWriteModel = async () => {
   }
 
   try {
-    // Initialize the AI writer with shared context
     const writer = await ai.writer.create({
       sharedContext: sharedContext,
     });
 
-    // Stream generated content using task-specific context
     const stream = await writer.writeStreaming("based on the given data alone"+userContent, { context: taskContext });
     const outputElement = document.getElementById("ai-response");
 
@@ -346,23 +334,12 @@ const GetWriteModel = async () => {
 );
     }
 console.log(fullResponse)
-    // Destroy the writer to release resources
     writer.destroy();
   } catch (error) {
     console.error("Error generating content:", error);
     alert("An error occurred while generating content. Please check the console for details.");
   }  
 };
-
-
-
-
-
-
-
-
-
-
 
 const handleWriteModel = async () => {
   
@@ -410,12 +387,10 @@ const handleWriteModel = async () => {
   }
 
   try {
-    // Initialize the AI writer with shared context
     const writer = await ai.writer.create({
       sharedContext: sharedContext,
     });
 
-    // Stream generated content using task-specific context
     const stream = await writer.writeStreaming("based on the given data alone"+userContent, { context: taskContext });
     const outputElement = document.getElementById("ai-response");
 
@@ -429,7 +404,6 @@ const handleWriteModel = async () => {
 );
     }
 console.log(fullResponse)
-    // Destroy the writer to release resources
     writer.destroy();
   } catch (error) {
     console.error("Error generating content:", error);
@@ -452,7 +426,6 @@ const GetreWriteModel = async () => {
     return;
   }
 
-  // Combine ai-response content with dataset content or other shared context
   const sharedContext = `
     Initial Content:
     ${aiResponseContent}
@@ -464,17 +437,15 @@ const GetreWriteModel = async () => {
   console.log("Generated Shared Context:", sharedContext);
 
   try {
-    // Initialize the AI rewriter with the shared context
     const rewriter = await ai.rewriter.create({
       sharedContext: sharedContext,
     });
 
-    // Stream rewritten content using the task context
     const stream = rewriter.rewriteStreaming(aiResponseContent, {
       context: taskContext
     });
     const outputElement = document.getElementById("ai-response");
-    outputElement.textContent = "Rewriting content..."; // Show temporary status
+    outputElement.textContent = "Rewriting content..."; 
 
     let fullResponse = '';
     for await (const chunk of stream) {
@@ -486,19 +457,12 @@ const GetreWriteModel = async () => {
 
     console.log("Final Rewritten Content:", fullResponse);
 
-    // Destroy the rewriter to release resources
     rewriter.destroy();
   } catch (error) {
     console.error("Error generating content:", error);
     alert("An error occurred while rewriting content. Please check the console for details.");
   }
 };
-
-// Attach the event listener to the rewrite button
-
-
-
-
 
 
 
@@ -516,7 +480,6 @@ const handlereWriteModel = async () => {
     return;
   }
 
-  // Combine ai-response content with dataset content or other shared context
   const sharedContext = `
     Initial Content:
     ${aiResponseContent}
@@ -528,17 +491,15 @@ const handlereWriteModel = async () => {
   console.log("Generated Shared Context:", sharedContext);
 
   try {
-    // Initialize the AI rewriter with the shared context
     const rewriter = await ai.rewriter.create({
       sharedContext: sharedContext,
     });
 
-    // Stream rewritten content using the task context
     const stream = rewriter.rewriteStreaming(aiResponseContent, {
       context: taskContext
     });
     const outputElement = document.getElementById("ai-response");
-    outputElement.textContent = "Rewriting content..."; // Show temporary status
+    outputElement.textContent = "Rewriting content..."; 
 
     let fullResponse = '';
     for await (const chunk of stream) {
@@ -550,7 +511,6 @@ const handlereWriteModel = async () => {
 
     console.log("Final Rewritten Content:", fullResponse);
 
-    // Destroy the rewriter to release resources
     rewriter.destroy();
   } catch (error) {
     console.error("Error generating content:", error);
@@ -558,5 +518,4 @@ const handlereWriteModel = async () => {
   }
 };
 
-// Attach the event listener to the rewrite button
 
